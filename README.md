@@ -19,22 +19,23 @@ Entry: Enter the trade somewhere inside the mother bar (e.g., beginning, midpoin
 Stop Loss: Place the stop loss at the opposite extreme of the mother bar.
 Take Profit: Set the target at the breakout candle’s highest or lowest position, depending on the breakout direction.
 Methodology
-Exploratory Data Analysis (EDA):
 
+Exploratory Data Analysis (EDA):
 Visualize the distribution and frequency of inside bars.
 Analyze market conditions during inside bar formations.
-Backtesting:
 
+Backtesting:
 Programmatically identify mother and inside bars.
 Simulate trades based on configurable entry points and risk-reward setups.
 Measure performance using metrics like:
 Cumulative profit.
 Win rate.
 Risk-reward ratios.
-Optimization:
 
+Optimization
 Test different entry points and stop-loss levels to maximize profitability.
 Assess the strategy under varying market trends and conditions.
+
 Project Objectives
 Validate the profitability of the inside bar trading strategy.
 Identify the optimal configuration for trade entry, stop-loss, and take-profit levels.
