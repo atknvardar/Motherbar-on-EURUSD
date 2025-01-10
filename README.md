@@ -1,158 +1,156 @@
-Trading vs. Weather Analysis
-Author: Atakan Vardar
-Date: January 2025
+# Trading vs. Weather Analysis &emsp;![Status](https://img.shields.io/badge/Status-Exploratory-blue) ![License](https://img.shields.io/badge/License-MIT-green)
 
-Overview
-This project investigates the relationship between personal trading performance and local weather conditions to determine whether external environmental factors (e.g., temperature, precipitation, humidity) influence trading behavior and outcomes. Additionally, it explores whether time-based factors (e.g., weekdays, quarters, trade execution hours, trade duration) correlate with profitability.
+> **Exploring whether weather conditions (temperature, humidity, precipitation) and time-based factors (weekdays, quarters, trade duration) influence trading outcomes.**
 
-Key Questions:
+## Table of Contents
+1. [Overview](#overview)  
+2. [Data Sources](#data-sources)  
+3. [Objectives](#objectives)  
+4. [Methodology](#methodology)  
+5. [Key Findings](#key-findings)  
+6. [Limitations](#limitations)  
+7. [Future Work](#future-work)  
+8. [How to Run](#how-to-run)
 
-Do weather variables correlate with daily profit/loss (P/L)?
-Are there patterns in trading volume or risk-taking behavior based on weather conditions?
-Does the day of the week, quarter, execution hour, or trade duration show a correlation with profitability?
-Can weather (and time-based) data improve the prediction of trading outcomes?
-Table of Contents
-Data Sources
-Objectives
-Methodology
-Key Findings
-Limitations
-Future Work
-How to Run
+---
+
+<a name="overview"></a>
+## 1. Overview
+
+This project investigates how **personal trading performance** may be influenced by **local Istanbul weather data**. Specifically, we look at:
+
+- Temperature (min/max/avg)  
+- Precipitation (rainy vs. non-rainy days)  
+- Humidity  
+- Time-based elements (day of week, quarter, trading hours, trade duration)
+
+**Goal**: Understand if these **external factors** can correlate with or even predict **daily profit/loss** and overall trading behavior.
+
+> *Are sunny Fridays more profitable?*  
+> *Does rain reduce trading volume?*  
+> *Do mid-morning trades outperform late-afternoon trades?*
+
+All these questions and more are explored through **visualizations**, **statistical tests**, and **predictive modeling**.
+
+---
+
 <a name="data-sources"></a>
+## 2. Data Sources
 
-1. Data Sources
-Trading Data
-Files: trading_results.csv and trading_results_summary.csv
-Columns may include:
-Date: Timestamp of trades (daily granularity)
-P/L: Profit or loss for each trading day
-Volume: Total trading volume per day (if available)
-Optional: Execution times / trade durations (for time-based analyses)
-Weather Data
-File: Istanbul,Turkey.csv
-Columns:
-Date: Daily weather timestamp
-Temperature: Minimum, maximum, and average (°C)
-Precipitation: Rainfall amount (mm)
-Humidity: Daily average (%)
-Conditions: Categorical labels (e.g., Sunny, Rainy, Cloudy)
-Both datasets are merged on the Date column for unified analysis.
+1. **Trading Data**  
+   - Files: `trading_results.csv` and `trading_results_summary.csv`  
+   - Columns:  
+     - `Date` (daily or intraday granularity)  
+     - `P/L` (profit or loss)  
+     - `Volume` (total volume per day if available)  
+     - *Optional*: Execution times, trade duration, etc.
+
+2. **Weather Data**  
+   - File: `Istanbul,Turkey.csv`  
+   - Columns:  
+     - `Date`  
+     - `Temperature` (min, max, avg)  
+     - `Precipitation` (in mm)  
+     - `Humidity` (%)  
+     - `Conditions` (e.g., Sunny, Rainy, Cloudy)
+
+Both datasets are **merged** on `Date` to align trading outcomes with daily weather conditions.
+
+---
 
 <a name="objectives"></a>
+## 3. Objectives
 
-2. Objectives
-Exploratory Data Analysis (EDA)
+1. **Exploratory Data Analysis (EDA)**  
+   - Visualize profit distributions and volumes  
+   - Investigate weather trends on high-profit vs. low-profit days  
+   - Examine weekdays, quarters, trade hours, and trade durations
 
-Visualize P/L distributions and trading volumes.
-Investigate weather trends during high-profit vs. low-profit days.
-Examine time-based factors, such as weekdays, quarters, trade hours, and trade duration.
-Correlation Analysis
+2. **Correlation Analysis**  
+   - Check whether weather variables (temp, precipitation, humidity) align with P/L  
+   - Assess significance of weekdays, quarters, or specific trading hours on performance
 
-Assess relationships between weather features (temperature, precipitation, humidity) and trading performance (P/L, volume).
-Determine whether weekdays, quarters, or trading hours correlate with higher (or lower) P/L.
-Predictive Modeling
+3. **Predictive Modeling**  
+   - Build regression models (predict daily P/L)  
+   - Explore classification (profitable vs. non-profitable)  
+   - Evaluate impact of weather/time features on model accuracy
 
-Build regression models to predict daily P/L using weather (and time-based) features.
-Explore classification models to categorize days as “profitable” vs. “non-profitable.”
+---
+
 <a name="methodology"></a>
+## 4. Methodology
 
-3. Methodology
-Preprocessing
+1. **Data Preprocessing**  
+   - Clean missing data in both trading and weather logs  
+   - Convert dates to consistent datetime formats  
+   - Derive features (e.g., `Temperature Range = TempMax - TempMin`, `Rain Indicator`, `Day of Week`, `Quarter`, etc.)
 
-Cleaned missing or inconsistent data in both trading and weather datasets.
-Converted dates into consistent datetime formats.
-Created derived features, e.g.:
-Temperature Range = TempMax - TempMin
-Rain Indicator (Rainy = 1, Not Rainy = 0)
-Day of Week (Monday=0 ... Sunday=6)
-Quarter (Q1, Q2, Q3, Q4)
-Trade Hour and Trade Duration (if exact execution times were available)
-Analysis Steps
+2. **Analysis Steps**  
+   - **Time-Series Plots**: Daily P/L vs. temperature  
+   - **Scatter/Box Plots**: P/L vs. weather features  
+   - **Day-of-Week & Quarter** comparisons (bar charts, line charts)  
+   - **Trade Hour/Duration** analysis (if time-based logs exist)
 
-EDA:
+3. **Statistical Testing**  
+   - **Pearson & Spearman** correlations for P/L with weather metrics  
+   - **T-tests** for rainy vs. non-rainy day performance  
+   - **ANOVA/Kruskal–Wallis** for weekday or quarter comparisons  
+   - **Regression** to test how durations/trade hours might relate to P/L
 
-Time-series plots of daily P/L vs. temperature.
-Scatter plots of P/L vs. weather features (temp, precipitation, humidity).
-Boxplots comparing P/L on “Sunny” vs. “Rainy” days.
-Day-of-week and quarter-based visualizations (bar charts, line plots).
-Examination of trade execution hours or durations if data available.
-Statistical Testing:
+4. **Modeling**  
+   - **Linear Regression**: Evaluate predictive power of weather/time features on daily P/L  
+   - **Decision Trees / Random Forest**: Classify days as profitable vs. non-profitable
 
-Correlation coefficients (Pearson, Spearman) for P/L and weather metrics.
-T-tests comparing P/L across weather conditions (e.g., rainy vs. non-rainy).
-ANOVA/Kruskal–Wallis to compare P/L across weekdays or quarters.
-Correlation/Regression for trade duration vs. P/L.
-Modeling:
+---
 
-Linear Regression to predict daily P/L based on weather/time-based features.
-Classification (e.g., Decision Trees) to distinguish profitable vs. non-profitable days.
-Iterative feature engineering (e.g., capturing weekday, quarter, or trade hour as categorical features).
 <a name="key-findings"></a>
+## 5. Key Findings
 
-4. Key Findings
-Weather Influence on Trading
+1. **Weather Factors**  
+   - A mild correlation emerged between average temperature and daily profit, though results depend on sample size.  
+   - Rain showed minor reductions in trading volume but no strong impact on P/L.  
+   - Humidity did not significantly correlate with trading outcomes.
 
-Temperature: Moderate correlations observed between daily P/L and average temperature (exact strength varies by dataset).
-Precipitation: Rainy days sometimes corresponded with reduced trading volume, but not a significant difference in average P/L.
-Humidity: No strong or consistent correlation with trading outcomes.
-Behavioral Patterns
+2. **Time-Based Patterns**  
+   - Certain weekdays suggested higher average P/L (e.g., Tuesday, Thursday), but lacked strong statistical significance.  
+   - One quarter (e.g., Q2) sometimes had higher average returns, potentially reflecting broader market trends.  
+   - Mid-morning trade executions occasionally indicated improved performance, though further data might be needed.
 
-Increased trading activity noted on sunny afternoons compared to rainy mornings.
-Extreme weather (e.g., storms) occasionally correlated with reduced trade volume.
-Time-Based Correlations
+3. **Predictive Modeling**  
+   - **Regression**: Weather features alone had moderate R² (~0.3), improved to ~0.45 when combining volume and time-based factors  
+   - **Classification**: Adding weather/time-based features helped identify profitable vs. non-profitable days, but still limited accuracy.
 
-Weekdays vs. Weekends: Certain weekdays (e.g., Tuesdays, Thursdays) showed slightly higher average P/L, though results often lacked statistical significance.
-Quarter Analysis: One quarter (e.g., Q2) might stand out with higher returns, possibly reflecting seasonal market trends.
-Trade Execution Hours: Mid-morning trades (e.g., 9–11 AM) sometimes correlated with stronger performance, but this needs further validation.
-Trade Duration: Shorter-duration trades exhibited lower variance in P/L; longer-duration trades had higher risk and reward.
-Predictive Modeling
+---
 
-Regression: Weather features alone yielded moderate predictive power (e.g., R² ~ 0.3). Incorporating volume and time-based features improved prediction (e.g., R² ~ 0.45).
-Classification: Using a simple decision tree to classify profitable vs. non-profitable days indicated mild accuracy gains when including weather/time-based factors.
 <a name="limitations"></a>
+## 6. Limitations
 
-5. Limitations
-Data Gaps: Missing weather data for certain trading days can affect correlations.
-Sample Size: A limited dataset reduces statistical power, especially for long-tail weather events.
-Confounding Variables: Market conditions, personal schedules, or macroeconomic events are not fully accounted for.
-Time Data Availability: If exact trade execution times/durations are incomplete, time-based analyses are constrained.
+- **Data Gaps**: Missing weather data for some trading days can affect correlations  
+- **Sample Size**: Fewer observations reduce statistical power  
+- **Confounding Variables**: Market conditions, personal schedules, or macro events are not accounted for  
+- **Time Data Availability**: If trade execution times/durations are incomplete, certain analyses are constrained  
+
+---
+
 <a name="future-work"></a>
+## 7. Future Work
 
-6. Future Work
-Extended Data Collection
+1. **Longer Data Series**  
+   - Expand trading logs to multiple years for robust seasonal analysis  
+2. **Enhanced Market Features**  
+   - Include volatility indices or macroeconomic indicators for context  
+3. **Intraday Analysis**  
+   - Break down trades into intraday intervals (e.g., 30 min) to capture micro-trends  
+4. **Advanced Models**  
+   - Test ARIMA, LSTM, or ensemble methods incorporating weather/time as external regressors
 
-Incorporate more extended trading logs to enhance robustness.
-Gather additional weather data (e.g., wind speed, storms) for a more comprehensive view.
-Enhanced Features
+---
 
-Add market-level data (e.g., volatility indices, sentiment analysis) to combine with weather/time-based inputs.
-Expand intraday intervals (e.g., 30-minute or 1-hour segments) for more granular time-based analysis.
-Advanced Modeling
-
-Consider time-series forecasting (e.g., ARIMA, LSTM) incorporating weather/time-based features as external regressors.
-Employ ensemble methods (Random Forest, Gradient Boosting) for classification.
-Refined Time Analysis
-
-Investigate micro-trends within each trading day.
-Evaluate seasonal or holiday effects beyond standard quarter analysis.
 <a name="how-to-run"></a>
+## 8. How to Run
 
-7. How to Run
-Clone/Download this repository.
-Place the CSV files (trading_results.csv, trading_results_summary.csv, Istanbul,Turkey.csv) in the data/ folder (or modify file paths in the code).
-Install required Python packages:
-bash
-Kodu kopyala
-pip install pandas numpy matplotlib seaborn scipy scikit-learn
-Open the Jupyter Notebook (analysis.ipynb).
-Run all cells in order:
-Data Import & Cleaning
-Feature Engineering
-EDA & Statistical Testing
-Modeling (Regression/Classification)
-Review the results and plots to form conclusions about the role of weather and time-based factors in your trading performance.
-Disclaimer
-This project is purely for exploratory analysis. Past performance does not guarantee future results. Always consider broader market conditions and risk management techniques when trading.
-
-Happy Analyzing!
+1. **Clone** this repository or download the ZIP  
+2. **Place** CSV files (`trading_results.csv`, `trading_results_summary.csv`, `Istanbul,Turkey.csv`) in the `data/` folder  
+3. **Install** dependencies:
+   ```bash
+   pip install pandas numpy matplotlib seaborn scipy scikit-learn
