@@ -1,5 +1,5 @@
 Trading vs. Weather Analysis
-Author: [Your Name]
+Author: Atakan Vardar
 Date: January 2025
 
 Overview
