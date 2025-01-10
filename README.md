@@ -149,7 +149,7 @@ Both datasets are **merged** on `Date` to align trading outcomes with daily weat
 <a name="how-to-run"></a>
 ## 8. How to Run
 
-1. **Clone** this repository or download the ZIP  
+1. **Clone** this repository or download the project  
 2. **Place** CSV files (`trading_results.csv`, `trading_results_summary.csv`, `Istanbul,Turkey.csv`) in the `data/` folder  
 3. **Install** dependencies:
    ```bash
